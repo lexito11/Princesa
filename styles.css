@@ -320,10 +320,11 @@ h1 {
 @media (max-width: 768px) {
     .intro-message {
         max-width: 85%;
-        line-height: 1.2; /* Reducido el espacio entre líneas */
+        line-height: 1.2;
+        font-size: 1.3rem; /* Aumentado de 0.8rem a 1.3rem */
     }
     .message {
-        line-height: 1.2; /* Reducido el espacio entre líneas */
+        line-height: 1.2;
     }
     .button-text {
         background-size: 100% auto;
@@ -339,10 +340,11 @@ h1 {
 @media (max-width: 480px) {
     .intro-message {
         max-width: 90%;
-        line-height: 1.1; /* Reducido aún más el espacio entre líneas */
+        line-height: 1.1;
+        font-size: 1.3rem; /* Aumentado de 0.8rem a 1.3rem */
     }
     .message {
-        line-height: 1.1; /* Reducido aún más el espacio entre líneas */
+        line-height: 1.1;
     }
     .button-text {
         background-size: 100% auto;
@@ -361,10 +363,11 @@ h1 {
         width: 100%;
     }
     .intro-message {
-        line-height: 1; /* Mínimo espacio entre líneas */
+        line-height: 1;
+        font-size: 1.3rem; /* Aumentado de 0.8rem a 1.3rem */
     }
     .message {
-        line-height: 1; /* Mínimo espacio entre líneas */
+        line-height: 1;
     }
     .button-text {
         background-size: 110% auto;
