@@ -1,0 +1,3 @@
+build: {
+  outDir: 'docs'
+} 

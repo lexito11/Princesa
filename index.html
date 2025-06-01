@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Princesa ❤️</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla de introducción -->
+    <div class="intro-screen" tabindex="0">
+        <p class="intro-text">Haz clic para comenzar</p>
+        <div class="intro-media-container">
+            <img src="images/rozas1.png" alt="Ramo de flores izquierda." class="intro-bouquet left">
+            <img src="images/imagen106.jpg" alt="Imagen de inicio" class="intro-image">
+            <img src="images/rozas1.png" alt="Ramo de flores derecha" class="intro-bouquet right">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hearts-container"></div>
+        <div class="content">
+            <h1 class="foreground">Mi Amor</h1>
+            
+            <div id="mediaContainer" class="photo-gallery">
+                <!-- Aquí se cargará la foto o video -->
+                <img src="" alt="" class="gallery-photo">
+            </div>
+
+            <p class="message foreground">Cada momento a tu lado es un regalo. Tu sonrisa ilumina mis días y tu amor hace que mi corazón dance de felicidad. Eres mi todo.</p>
+            <button id="loveButton" class="love-button foreground">Haz clic para ver cuánto te amo <span class="no-border-emoji">❣️</span></button>
+            <div id="loveMessage" class="love-message hidden foreground" aria-live="polite">
+                <p>Te amo más que ayer, menos que mañana, y cada día un poco más que el anterior...</p>
+                <div class="heart-animation">❤️</div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <audio id="bgMusic" src="audio/tu-cancion.mp3" loop></audio>
+</body>
+</html> 
