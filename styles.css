@@ -89,19 +89,21 @@ h1 {
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
     margin-bottom: 1rem; /* Mantener el margen inferior en el contenedor */
+    animation: pulseButton 1.5s infinite; /* Aplicar animación de pulso solo al contenedor */
+    transition: transform 400ms ease-in-out; /* Aplicar transición de escala solo al contenedor */
+    cursor: pointer; /* Indicar que es un elemento interactivo al pasar el mouse */
 }
 
 /* Estilos para el texto del botón */
 .button-text {
     position: absolute; /* Posicionamiento absoluto sobre la imagen */
-    top: 32%; /* Posicionar desde la mitad superior del contenedor */
-    left: 35%; /* Posicionar desde la mitad izquierda del contenedor */
+    top: 50%; /* Posicionar desde la mitad superior del contenedor */
+    left: 51%; /* Cambiado de 35% a 65% para moverlo hacia la derecha */
     transform: translate(-50%, -50%); /* Ajustar para centrar basado en el propio tamaño del texto */
     font-size: 0.7rem; /* Reducido el tamaño de la fuente */
     font-weight: 500;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    animation: pulseButton 1.5s infinite; /* Añadir la misma animación de pulso que el botón */
     text-align: center; /* Centrar el texto horizontalmente dentro de su propia caja */
     pointer-events: none; /* Permitir clics a través del texto hasta la imagen */
     z-index: 2; /* Asegurar que el texto esté encima de la imagen */
@@ -120,8 +122,6 @@ h1 {
     cursor: pointer;
     max-width: 150px;
     height: auto;
-    transition: transform 400ms ease-in-out;
-    animation: pulseButton 1.5s infinite; /* Añadir animación de pulso */
     position: relative; /* Necesario para que el z-index funcione dentro del contenedor */
     z-index: 1; /* Asegurar que la imagen está debajo del texto */
     display: block; /* Asegurar que la imagen se comporta como un bloque */
@@ -145,15 +145,9 @@ h1 {
     transform: none;
 }
 
-/* Add a class to trigger the scale on click */
-.love-button-image.clicked {
-    transform: scale(1.20);
-    animation: none; /* Detener la animación de pulso cuando se hace clic */
-}
-
-/* Estilos para el texto del botón cuando se hace clic */
-.button-text.clicked {
-    animation: none; /* Detener la animación de pulso cuando se hace clic */
+/* Cuando el contenedor tiene la clase .clicked, escalar SOLAMENTE el contenedor */
+.button-container.clicked {
+     transform: scale(1.20); /* Aplicar SOLO la escala al contenedor al hacer clic */
 }
 
 .love-message {
