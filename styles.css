@@ -120,7 +120,7 @@ h1 {
     cursor: pointer;
     max-width: 150px;
     height: auto;
-    transition: transform 140ms ease-in-out;
+    transition: transform 400ms ease-in-out;
     animation: pulseButton 1.5s infinite; /* Añadir animación de pulso */
     position: relative; /* Necesario para que el z-index funcione dentro del contenedor */
     z-index: 1; /* Asegurar que la imagen está debajo del texto */
@@ -361,7 +361,7 @@ h1 {
     width: 30%;
     height: auto;
     max-width: 400px;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 20px;
     overflow: hidden;
     margin: 0 10px;
@@ -370,7 +370,7 @@ h1 {
 .intro-bouquet {
     width: 80px;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .intro-screen.hidden {

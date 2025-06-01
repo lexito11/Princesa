@@ -544,14 +544,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const svgHeart = `<svg width="1em" height="1em" viewBox="0 0 24 24" fill="#ff2a2a" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
         const floatingElements = [svgHeart, '❣️', '❤️', '🌹']; // Añadido el emoji de rosa
         heart.innerHTML = floatingElements[Math.floor(Math.random() * floatingElements.length)];
-        // Tamaños aleatorios para los corazones
-        const sizes = ['1.5em', '2em', '2.5em', '3em', '4em', '5em'];
+        // Tamaños aleatorios para los elementos flotantes
+        const sizes = ['1.2em', '1.4em', '1.6em', '1.8em', '2em', '3em'];
         heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
         // Posición inicial aleatoria
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.bottom = Math.random() * 20 - 20 + 'vh';
-        // Velocidad y duración aleatoria
-        const duration = Math.random() * 3 + 3; // Entre 3 y 6 segundos (antes era 4-8)
+        // Duración aleatoria entre 5 y 10 segundos (antes entre 3 y 8)
+        const duration = Math.random() * 4 + 5;
         heart.style.animationDuration = duration + 's';
         
         // Rotación aleatoria
@@ -566,8 +566,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, duration * 1000);
     }
 
-    // Crear corazones cada cierto tiempo
-    setInterval(createHeart, 150); // Crear un corazón cada 150ms (antes era 200ms)
+    // Crear elementos flotantes periódicamente
+    // Cambiado de 150ms a 300ms para crear corazones con menos frecuencia
+    setInterval(createHeart, 300);
 
     // Función para generar la secuencia inicial de 5 mensajes
     function generateFirstFiveMessagesSequence(messagesList, specialMsg) {
@@ -606,6 +607,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Manejar el clic en el botón
     loveButton.addEventListener('click', () => {
+        // Añadir la clase 'clicked' para la animación de escala
+        loveButton.classList.add('clicked');
+
+        // Quitar la clase 'clicked' después de la duración de la animación
+        setTimeout(() => {
+            loveButton.classList.remove('clicked');
+        }, animationDuration); // Usar la misma duración que la transición CSS
+
         // Mostrar mensaje con animación (de la aparición del loveMessage)
         loveMessage.classList.remove('hidden');
         setTimeout(() => {
