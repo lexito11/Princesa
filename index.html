@@ -9,12 +9,13 @@
 <body>
     <!-- Pantalla de introducción -->
     <div class="intro-screen" tabindex="0">
-        <p class="intro-text">Haz clic para comenzar</p>
+        <p class="intro-message">Desde que llegaste, todo cambió. No sabía que una risa como la tuya podía curarme tanto… que una mirada tuya podía hacerme sentir en casa.<br>Contigo, todo se siente más bonito, más claro, más mío.<br>Desde que estás, sonrío más, suspiro más, y hasta los días nublados tienen algo de sol.<br>Me haces sentir amado de una forma que no sabía que existía.<br>Tú eres mi lugar seguro, mi pedacito de paz, lo mejor que me ha pasado.</p>Te Amo❣️❣️
         <div class="intro-media-container">
             <img src="images/rozas1.png" alt="Ramo de flores izquierda." class="intro-bouquet left">
-            <img src="images/imagen106.jpg" alt="Imagen de inicio" class="intro-image">
+            <video src="images/imagen107.mp4" autoplay loop muted playsinline class="intro-image" alt="Video de inicio"></video>
             <img src="images/rozas1.png" alt="Ramo de flores derecha" class="intro-bouquet right">
         </div>
+        <p class="intro-text">Haz clic para comenzar</p>
     </div>
 
     <div class="container">
@@ -28,10 +29,18 @@
             </div>
 
             <p class="message foreground">Cada momento a tu lado es un regalo. Tu sonrisa ilumina mis días y tu amor hace que mi corazón dance de felicidad. Eres mi todo.</p>
-            <button id="loveButton" class="love-button foreground">Haz clic para ver cuánto te amo <span class="no-border-emoji">❣️</span></button>
+
             <div id="loveMessage" class="love-message hidden foreground" aria-live="polite">
                 <p>Te amo más que ayer, menos que mañana, y cada día un poco más que el anterior...</p>
-                <div class="heart-animation">❤️</div>
+            </div>
+
+            <!-- Contenedor para el texto y el botón -->
+            <div class="button-container foreground">
+                <!-- Texto encima del botón -->
+                <p class="button-text">Haz clic para que veas<br>Cuanto te amo</p>
+
+                <!-- Reemplazado el botón con una imagen -->
+                <img id="loveButton" src="images/boton1.png" alt="Haz clic para ver cuánto te amo" class="love-button-image">
             </div>
         </div>
     </div>

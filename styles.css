@@ -55,30 +55,18 @@ h1 {
 }
 
 .love-button {
-    background: #ff4b4b;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 15px rgba(255, 75, 75, 0.3);
-    position: relative;
-    overflow: hidden;
-    margin-top: -10px;
+    transition: transform 0.4s, box-shadow 0.4s;
+    margin-bottom: 1rem;
 }
 
 .love-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 8px rgba(255, 75, 75, 0.3);
+    /* Eliminar el efecto de movimiento hacia abajo */
+    transform: none;
 }
 
 .love-button:active:after {
-    content: ' ❤️';
-    display: inline-block;
-    animation: popHeart 0.4s ease-out;
-    text-shadow: none !important;
+    /* Eliminar cualquier efecto adicional */
+    display: none;
 }
 
 /* Animación para el corazón al hacer clic */
@@ -92,6 +80,80 @@ h1 {
     100% {
         transform: scale(1); opacity: 0;
     }
+}
+
+/* Estilos para el contenedor del botón */
+.button-container {
+    position: relative; /* Necesario para el posicionamiento absoluto del texto */
+    display: flex; /* Usar Flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    margin-bottom: 1rem; /* Mantener el margen inferior en el contenedor */
+}
+
+/* Estilos para el texto del botón */
+.button-text {
+    position: absolute; /* Posicionamiento absoluto sobre la imagen */
+    top: 32%; /* Posicionar desde la mitad superior del contenedor */
+    left: 35%; /* Posicionar desde la mitad izquierda del contenedor */
+    transform: translate(-50%, -50%); /* Ajustar para centrar basado en el propio tamaño del texto */
+    font-size: 0.7rem; /* Reducido el tamaño de la fuente */
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    animation: pulseButton 1.5s infinite; /* Añadir la misma animación de pulso que el botón */
+    text-align: center; /* Centrar el texto horizontalmente dentro de su propia caja */
+    pointer-events: none; /* Permitir clics a través del texto hasta la imagen */
+    z-index: 2; /* Asegurar que el texto esté encima de la imagen */
+    margin: 0; /* Asegurar que no haya márgenes */
+    padding: 15px 25px; /* Aumentado el padding para hacer el fondo más grande */
+    line-height: 1.1; /* Reducir el espacio entre líneas */
+    border-radius: 0px; /* Redondear las esquinas */
+    background-image: url('images/flecha1.png'); /* Usar imagen como fondo */
+    background-size: 90% auto; /* Reducido el tamaño un 2% (aprox 1px) */
+    background-repeat: no-repeat; /* No repetir la imagen */
+    background-position: center; /* Centrar la imagen de fondo */
+}
+
+/* Añadir estilos para la imagen del botón */
+.love-button-image {
+    cursor: pointer;
+    max-width: 150px;
+    height: auto;
+    transition: transform 140ms ease-in-out;
+    animation: pulseButton 1.5s infinite; /* Añadir animación de pulso */
+    position: relative; /* Necesario para que el z-index funcione dentro del contenedor */
+    z-index: 1; /* Asegurar que la imagen está debajo del texto */
+    display: block; /* Asegurar que la imagen se comporta como un bloque */
+}
+
+/* Definir la animación de pulso para el botón */
+@keyframes pulseButton {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.love-button-image:hover {
+    /* Eliminar el efecto hover */
+    transform: none;
+}
+
+/* Add a class to trigger the scale on click */
+.love-button-image.clicked {
+    transform: scale(1.20);
+    animation: none; /* Detener la animación de pulso cuando se hace clic */
+}
+
+/* Estilos para el texto del botón cuando se hace clic */
+.button-text.clicked {
+    animation: none; /* Detener la animación de pulso cuando se hace clic */
 }
 
 .love-message {
@@ -249,6 +311,38 @@ h1 {
     transition: opacity 0.5s ease;
 }
 
+.intro-message {
+    font-size: 0.8rem;
+    margin-bottom: -5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    max-width: 25%; /* Ancho por defecto para pantallas grandes */
+    padding: 10px;
+    color: #fff;
+    margin-top: -30px;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .intro-message {
+        max-width: 85%; /* Mayor ancho en pantallas pequeñas */
+    }
+}
+
+/* Media query para pantallas extra pequeñas */
+@media (max-width: 480px) {
+    .intro-message {
+        max-width: 90%; /* Aún más ancho en pantallas muy pequeñas */
+    }
+}
+
+/* Media query para pantallas ultra pequeñas */
+@media (max-width: 380px) {
+    .intro-text {
+        text-align: center !important; /* Centrar el texto en pantallas ultra pequeñas */
+        width: 100%; /* Asegurar que ocupe todo el ancho para centrar */
+    }
+}
+
 .intro-text {
     margin-bottom: 20px;
     font-size: 2rem;
@@ -264,7 +358,7 @@ h1 {
 
 /* Estilos para la imagen en la pantalla de introducción */
 .intro-image {
-    width: 50%;
+    width: 30%;
     height: auto;
     max-width: 400px;
     object-fit: contain;
@@ -282,4 +376,26 @@ h1 {
 .intro-screen.hidden {
     opacity: 0;
     pointer-events: none;
+}
+
+/* Animación de aparición gradual para textos */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Estilos para el título 'Te Amo' en la pantalla de introducción */
+.intro-title {
+    position: absolute; /* Posicionar absolutamente */
+    top: -15px; /* Cambiado de 0% a -5px para mover 5px hacia arriba */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Ajuste para centrado perfecto */
+    font-size: 3rem; /* Tamaño de fuente grande */
+    color: #fff; /* Color blanco */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+    z-index: 2001; /* Asegurar que esté encima de otros elementos */
 } 
