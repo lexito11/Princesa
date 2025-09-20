@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const specialMessage = "Eres mi razón de sonreír cada mañana y mi motivo para soñar cada noche. Te amo más de lo que las palabras pueden expresar"; // Mensaje especial
     let firstFiveMessagesSequence = []; // Secuencia para los primeros 5 mensajes
     let currentSequenceIndex = 0; // Índice actual en la secuencia
+    let usedImages = []; // Array para rastrear imágenes ya mostradas
 
     // Lista de archivos de imágenes y videos en la carpeta images
     const mediaFiles = [
@@ -19,21 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de canciones (para reproducción secuencial)
     const canciones = [
-        'cancion1.mp3',
-        'cancion2.mp3',
-        'cancion3.mp3',
-        'cancion4.mp3'
+        'Musica/cancion1.mp3',
+        'Musica/cancion2.mp3',
+        'Musica/cancion3.mp3',
+        'Musica/cancion4.mp3'
     ];
 
     // Lista ponderada para la selección de la primera canción
     // Agregamos cancion1.mp3 varias veces para aumentar su probabilidad
     const initialSongSelection = [
-        'cancion1.mp3', // Mayor probabilidad
-        'cancion1.mp3', // Mayor probabilidad
-        'cancion1.mp3', // Mayor probabilidad
-        'cancion2.mp3',
-        'cancion3.mp3',
-        'cancion4.mp3'
+        'Musica/cancion1.mp3', // Mayor probabilidad
+        'Musica/cancion1.mp3', // Mayor probabilidad
+        'Musica/cancion1.mp3', // Mayor probabilidad
+        'Musica/cancion2.mp3',
+        'Musica/cancion3.mp3',
+        'Musica/cancion4.mp3'
     ];
 
     // Índice actual de la canción (se usará para la reproducción secuencial)
@@ -76,8 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
             imgElement = mediaContainer.querySelector('.gallery-photo');
         }
 
-        // Elegir un archivo aleatorio
-        const randomFile = mediaFiles[Math.floor(Math.random() * mediaFiles.length)];
+        // Elegir un archivo aleatorio que no se haya usado
+        let availableFiles = mediaFiles.filter(file => !usedImages.includes(file));
+        
+        // Si ya se usaron todas las imágenes, reiniciar la lista
+        if (availableFiles.length === 0) {
+            usedImages = [];
+            availableFiles = mediaFiles;
+        }
+        
+        const randomFile = availableFiles[Math.floor(Math.random() * availableFiles.length)];
+        usedImages.push(randomFile); // Agregar a la lista de usadas
         const filePath = `${randomFile}`;
 
         // Determinar si es imagen o video
