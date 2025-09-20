@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Elegir un archivo aleatorio
         const randomFile = mediaFiles[Math.floor(Math.random() * mediaFiles.length)];
-        const filePath = `images/${randomFile}`;
+        const filePath = `${randomFile}`;
 
         // Determinar si es imagen o video
         if (randomFile.endsWith('.jpg') || randomFile.endsWith('.png') || randomFile.endsWith('.gif')) {
