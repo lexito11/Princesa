@@ -1,3 +1,24 @@
+// Intentar reproducir música INMEDIATAMENTE al cargar
+const forceEarlyPlay = () => {
+    const bgMusic = document.getElementById('bgMusic');
+    if (bgMusic) {
+        bgMusic.volume = 0.5;
+        bgMusic.muted = false;
+        bgMusic.play().then(() => {
+            console.log('🎵 ÉXITO: Música iniciada muy temprano');
+        }).catch(() => {
+            console.log('⏰ Reproducción temprana falló, esperando DOMContentLoaded');
+        });
+    }
+};
+
+// Intentar apenas se encuentre el script
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceEarlyPlay);
+} else {
+    forceEarlyPlay();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const loveButton = document.getElementById('loveButton');
     const loveMessage = document.getElementById('loveMessage');
@@ -163,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgMusic = document.getElementById('bgMusic');
     if (bgMusic) {
         bgMusic.volume = 0.5;
+        bgMusic.muted = false; // Activar sonido inmediatamente
         // Cargar la canción de intro (solo cancion5 o cancion6)
         bgMusic.src = introSongPath;
         bgMusic.loop = false;
@@ -182,34 +204,80 @@ document.addEventListener('DOMContentLoaded', () => {
             playNextSong();
         });
 
-        // Función para intentar reproducir la música con interacción del usuario
-        const playMusicWithInteraction = async () => {
-            if (bgMusic.paused) {
-                try {
+        // Función para activar audio con interacción del usuario
+        const enableAudioWithInteraction = async () => {
+            try {
+                bgMusic.muted = false; // Activar sonido
+                if (bgMusic.paused) {
                     await bgMusic.play();
-                    console.log('Música iniciada por interacción del usuario');
-                } catch (error) {
-                    console.error('Error al reproducir música con interacción:', error);
+                }
+                console.log('Audio activado por interacción del usuario');
+            } catch (error) {
+                console.error('Error al activar audio con interacción:', error);
+            }
+        };
+
+        // Estrategia múltiple para autoplay con sonido
+        const tryAutoplayWithSound = async () => {
+            try {
+                // Intentar primero con sonido
+                bgMusic.muted = false;
+                await bgMusic.play();
+                console.log('✅ Música de intro con sonido iniciada automáticamente');
+                return true;
+            } catch (error) {
+                console.log('❌ Autoplay con sonido bloqueado, intentando muted...');
+                try {
+                    // Si falla, intentar muted
+                    bgMusic.muted = true;
+                    await bgMusic.play();
+                    console.log('⚠️ Música iniciada muted, esperando interacción para sonido');
+                    
+                    // Intentar activar sonido después de un breve delay
+                    setTimeout(() => {
+                        bgMusic.muted = false;
+                        console.log('🔊 Intentando activar sonido automáticamente...');
+                    }, 500);
+                    
+                    return false;
+                } catch (mutedError) {
+                    console.log('❌ Autoplay completamente bloqueado:', mutedError);
+                    return false;
                 }
             }
         };
 
-        // Intentar reproducir automáticamente (puede ser bloqueado)
-        bgMusic.play().catch(error => {
-             console.log('Reproducción automática bloqueada, esperando interacción...', error);
-             console.log('Canción actual:', bgMusic.src);
-        });
-
-        // Reproducir la música al primer clic en cualquier parte de la página
-        document.addEventListener('click', playMusicWithInteraction, { once: true });
+        // Ejecutar autoplay con múltiples intentos
+        let autoplayAttempts = 0;
+        const maxAttempts = 5;
         
-        // También agregar listener específico para la intro
-        introScreen.addEventListener('click', playMusicWithInteraction, { once: true });
+        const attemptAutoplay = () => {
+            autoplayAttempts++;
+            console.log(`🎯 Intento de autoplay #${autoplayAttempts}`);
+            
+            tryAutoplayWithSound().then(soundWorking => {
+                if (!soundWorking && autoplayAttempts < maxAttempts) {
+                    // Reintentar después de un delay
+                    setTimeout(attemptAutoplay, 1000);
+                } else if (!soundWorking) {
+                    console.log('🔧 Configurando eventos de respaldo para activar sonido...');
+                    // Backup: Activar sonido con cualquier interacción
+                    document.addEventListener('mousemove', enableAudioWithInteraction, { once: true });
+                    document.addEventListener('click', enableAudioWithInteraction, { once: true });
+                    document.addEventListener('touchstart', enableAudioWithInteraction, { once: true });
+                    document.addEventListener('keydown', enableAudioWithInteraction, { once: true });
+                    document.addEventListener('scroll', enableAudioWithInteraction, { once: true });
+                }
+            });
+        };
+        
+        // Iniciar intentos de autoplay
+        attemptAutoplay();
 
-        // También puedes intentar reproducir la música cuando la pantalla de introducción desaparece
+        // También activar sonido cuando la pantalla de introducción desaparece
         introScreen.addEventListener('transitionend', () => {
             if (introScreen.classList.contains('hidden')) {
-                 playMusicWithInteraction();
+                enableAudioWithInteraction();
             }
         }, { once: true });
 
@@ -231,7 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
             bgMusic.src = initialSongPath;
             currentSongIndex = getInitialSongIndex(initialSongPath);
             
-            // Intentar reproducir la nueva canción
+            // Asegurar que el audio esté activado y reproducir
+            bgMusic.muted = false;
             bgMusic.play().catch(error => {
                 console.log('Error al cambiar canción después de intro:', error);
             });
