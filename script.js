@@ -197,10 +197,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Intentar reproducir automáticamente (puede ser bloqueado)
         bgMusic.play().catch(error => {
              console.log('Reproducción automática bloqueada, esperando interacción...', error);
+             console.log('Canción actual:', bgMusic.src);
         });
 
         // Reproducir la música al primer clic en cualquier parte de la página
         document.addEventListener('click', playMusicWithInteraction, { once: true });
+        
+        // También agregar listener específico para la intro
+        introScreen.addEventListener('click', playMusicWithInteraction, { once: true });
 
         // También puedes intentar reproducir la música cuando la pantalla de introducción desaparece
         introScreen.addEventListener('transitionend', () => {
