@@ -1,16 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "docs",
-  "installCommand": "npm install",
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "installCommand": "npm install"
 }
