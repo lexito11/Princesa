@@ -23,10 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
         'Musica/cancion1.mp3',
         'Musica/cancion2.mp3',
         'Musica/cancion3.mp3',
-        'Musica/cancion4.mp3'
+        'Musica/cancion4.mp3',
+        'Musica/cancion5.mp3',
+        'Musica/cancion6.mp3'
     ];
 
-    // Lista ponderada para la selección de la primera canción
+    // Lista de canciones SOLO para la pantalla de intro
+    const cancionesIntro = [
+        'Musica/cancion5.mp3',
+        'Musica/cancion6.mp3'
+    ];
+
+    // Lista ponderada para la selección de la primera canción DESPUÉS de la intro
     // Agregamos cancion1.mp3 varias veces para aumentar su probabilidad
     const initialSongSelection = [
         'Musica/cancion1.mp3', // Mayor probabilidad
@@ -34,7 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'Musica/cancion1.mp3', // Mayor probabilidad
         'Musica/cancion2.mp3',
         'Musica/cancion3.mp3',
-        'Musica/cancion4.mp3'
+        'Musica/cancion4.mp3',
+        'Musica/cancion5.mp3',
+        'Musica/cancion6.mp3'
     ];
 
     // Índice actual de la canción (se usará para la reproducción secuencial)
@@ -45,20 +55,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return canciones.indexOf(songPath);
     }
 
-    // Seleccionar una canción inicial de la lista ponderada
+    // Seleccionar una canción inicial PARA LA INTRO (solo cancion5 y cancion6)
+    const introSongPath = cancionesIntro[Math.floor(Math.random() * cancionesIntro.length)];
+
+    // Seleccionar una canción para después de la intro de la lista ponderada
     const initialSongPath = initialSongSelection[Math.floor(Math.random() * initialSongSelection.length)];
 
-    // Establecer el índice actual basado en la canción inicial seleccionada
+    // Establecer el índice actual basado en la canción inicial seleccionada (para después de la intro)
     currentSongIndex = getInitialSongIndex(initialSongPath);
+
+    // Variable para saber si estamos en la intro
+    let isInIntro = true;
 
     // Duración de la animación para textos e imágenes (en milisegundos)
     const animationDuration = 400; // Reducida la duración a 0.4 segundos (400ms)
 
-    // Función para reproducir la siguiente canción (usa la lista 'canciones' secuencial)
+    // Función para reproducir la siguiente canción
     function playNextSong() {
-        currentSongIndex = (currentSongIndex + 1) % canciones.length;
         const bgMusic = document.getElementById('bgMusic');
-        bgMusic.src = canciones[currentSongIndex];
+        
+        if (isInIntro) {
+            // Si estamos en la intro, reproducir otra canción de intro aleatoriamente
+            const nextIntroSong = cancionesIntro[Math.floor(Math.random() * cancionesIntro.length)];
+            bgMusic.src = nextIntroSong;
+        } else {
+            // Si ya no estamos en la intro, usar la lista completa de canciones secuencialmente
+            currentSongIndex = (currentSongIndex + 1) % canciones.length;
+            bgMusic.src = canciones[currentSongIndex];
+        }
+        
         bgMusic.play().catch(error => {
             console.error('Error al reproducir la siguiente canción:', error);
         });
@@ -138,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgMusic = document.getElementById('bgMusic');
     if (bgMusic) {
         bgMusic.volume = 0.5;
-        // Cargar la canción inicial seleccionada
-        bgMusic.src = initialSongPath;
+        // Cargar la canción de intro (solo cancion5 o cancion6)
+        bgMusic.src = introSongPath;
         bgMusic.loop = false;
         
         // Añadir eventos para depuración
@@ -192,7 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
     introScreen.addEventListener('click', () => {
         introScreen.classList.add('hidden');
         contentContainer.classList.add('visible'); /* Mostrar el contenido principal */
-        // Opcional: Iniciar animaciones o sonidos aquí después de la introducción
+        
+        // Cambiar a música normal (salir de la intro)
+        isInIntro = false;
+        
+        // Cambiar a la canción inicial seleccionada para la sección principal
+        const bgMusic = document.getElementById('bgMusic');
+        if (bgMusic) {
+            bgMusic.src = initialSongPath;
+            currentSongIndex = getInitialSongIndex(initialSongPath);
+            
+            // Intentar reproducir la nueva canción
+            bgMusic.play().catch(error => {
+                console.log('Error al cambiar canción después de intro:', error);
+            });
+        }
     });
 
     // Lista de mensajes para mostrar al hacer clic en el botón

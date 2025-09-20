@@ -24,7 +24,7 @@ export default defineConfig({
         }
         
         // Copiar archivos de música
-        const musicFiles = ['cancion1.mp3', 'cancion2.mp3', 'cancion3.mp3', 'cancion4.mp3']
+        const musicFiles = ['cancion1.mp3', 'cancion2.mp3', 'cancion3.mp3', 'cancion4.mp3', 'cancion5.mp3', 'cancion6.mp3']
         musicFiles.forEach(file => {
           try {
             copyFileSync(join('Musica', file), join(musicDir, file))

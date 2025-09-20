@@ -89,8 +89,8 @@ h1 {
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
     margin-bottom: 1rem; /* Mantener el margen inferior en el contenedor */
+    transition: transform 0.4s ease; /* Transición suave para el crecimiento */
     animation: pulseButton 1.5s infinite; /* Aplicar animación de pulso solo al contenedor */
-    transition: transform 400ms ease-in-out; /* Aplicar transición de escala solo al contenedor */
     cursor: pointer; /* Indicar que es un elemento interactivo al pasar el mouse */
 }
 
@@ -126,6 +126,10 @@ h1 {
     position: relative; /* Necesario para que el z-index funcione dentro del contenedor */
     z-index: 1; /* Asegurar que la imagen está debajo del texto */
     display: block; /* Asegurar que la imagen se comporta como un bloque */
+    border: none; /* Eliminar cualquier borde */
+    outline: none; /* Eliminar outline del foco */
+    background: none; /* Eliminar fondo */
+    transition: transform 0.4s ease; /* Solo transición para el transform */
 }
 
 /* Definir la animación de pulso para el botón */
@@ -142,8 +146,38 @@ h1 {
 }
 
 .love-button-image:hover {
-    /* Eliminar el efecto hover */
+    /* Eliminar cualquier efecto hover de color */
     transform: none;
+    filter: none;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.love-button-image:active,
+.love-button-image:focus,
+.love-button-image:visited {
+    /* Eliminar efectos de clic y foco */
+    transform: none;
+    filter: none;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Asegurar que no hay efectos en estados específicos */
+img.love-button-image,
+img.love-button-image:hover,
+img.love-button-image:active,
+img.love-button-image:focus {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    filter: none !important;
 }
 
 /* Cuando el contenedor tiene la clase .clicked, escalar SOLAMENTE el contenedor */
