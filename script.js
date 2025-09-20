@@ -19,21 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de canciones (para reproducción secuencial)
     const canciones = [
-        'Musica/cancion1.mp3',
-        'Musica/cancion2.mp3',
-        'Musica/cancion3.mp3',
-        'Musica/cancion4.mp3'
+        'cancion1.mp3',
+        'cancion2.mp3',
+        'cancion3.mp3',
+        'cancion4.mp3'
     ];
 
     // Lista ponderada para la selección de la primera canción
     // Agregamos cancion1.mp3 varias veces para aumentar su probabilidad
     const initialSongSelection = [
-        'Musica/cancion1.mp3', // Mayor probabilidad
-        'Musica/cancion1.mp3', // Mayor probabilidad
-        'Musica/cancion1.mp3', // Mayor probabilidad
-        'Musica/cancion2.mp3',
-        'Musica/cancion3.mp3',
-        'Musica/cancion4.mp3'
+        'cancion1.mp3', // Mayor probabilidad
+        'cancion1.mp3', // Mayor probabilidad
+        'cancion1.mp3', // Mayor probabilidad
+        'cancion2.mp3',
+        'cancion3.mp3',
+        'cancion4.mp3'
     ];
 
     // Índice actual de la canción (se usará para la reproducción secuencial)
